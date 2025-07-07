@@ -1,0 +1,19 @@
+version: 1
+workflows:
+  StartSmart:
+    name: StartSmart iOS App
+    environment:
+      node: 18
+    steps:
+      - name: Install Dependencies
+        script: npm ci
+      - name: Build Web Application
+        script: npm run build
+      - name: Sync to iOS Platform
+        script: npx cap sync ios
+    actions:
+      - name: Archive and Upload
+        scheme: App
+        platform: iOS
+        archive: true
+        upload_to_app_store_connect: true
