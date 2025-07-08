@@ -1,0 +1,47 @@
+default_platform(:ios)
+
+platform :ios do
+  desc "Build and upload to TestFlight"
+  lane :beta do
+    # Get certificates and provisioning profiles
+    get_certificates
+    get_provisioning_profile
+    
+    # Build the app
+    build_app(
+      workspace: "App.xcworkspace",
+      scheme: "App",
+      configuration: "Release",
+      export_method: "app-store"
+    )
+    
+    # Upload to TestFlight
+    upload_to_testflight(
+      api_key_path: ENV["APP_STORE_CONNECT_API_KEY_PATH"],
+      skip_waiting_for_build_processing: true
+    )
+  end
+  
+  desc "Build and upload to App Store"
+  lane :release do
+    # Get certificates and provisioning profiles
+    get_certificates
+    get_provisioning_profile
+    
+    # Build the app
+    build_app(
+      workspace: "App.xcworkspace",
+      scheme: "App",
+      configuration: "Release",
+      export_method: "app-store"
+    )
+    
+    # Upload to App Store
+    upload_to_app_store(
+      api_key_path: ENV["APP_STORE_CONNECT_API_KEY_PATH"],
+      skip_metadata: true,
+      skip_screenshots: true,
+      force: true
+    )
+  end
+end
