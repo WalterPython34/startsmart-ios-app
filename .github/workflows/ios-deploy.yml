@@ -1,4 +1,4 @@
-name: iOS App Deploy with Fastlane
+name: iOS App Deploy - Simple
 
 on:
   push:
@@ -21,8 +21,8 @@ jobs:
     - name: Install dependencies
       run: npm install
       
-    - name: Build React app
-      run: npm run build:client
+    - name: Build app
+      run: npm run build
       
     - name: Setup Capacitor iOS
       run: |
