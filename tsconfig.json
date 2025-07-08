@@ -5,23 +5,45 @@
     "lib": ["ES2020", "DOM", "DOM.Iterable"],
     "module": "ESNext",
     "skipLibCheck": true,
+
+    /* Bundler mode */
     "moduleResolution": "bundler",
     "allowImportingTsExtensions": true,
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react-jsx",
+
+    /* Linting */
     "strict": true,
-    "noUnusedLocals": false,
-    "noUnusedParameters": false,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
+
+    /* Path mapping for your project structure */
     "baseUrl": ".",
     "paths": {
       "@/*": ["./client/src/*"],
-      "@shared/*": ["./shared/*"],
-      "@assets/*": ["./attached_assets/*"]
+      "@/components/*": ["./client/src/components/*"],
+      "@/pages/*": ["./client/src/pages/*"],
+      "@/utils/*": ["./client/src/utils/*"]
     }
   },
-  "include": ["client/src", "shared", "server"],
-  "references": [{ "path": "./tsconfig.node.json" }]
+  "include": [
+    "client/src/**/*",
+    "client/src/**/*.tsx",
+    "client/src/**/*.ts",
+    "vite.config.ts"
+  ],
+  "exclude": [
+    "node_modules",
+    "dist",
+    "ios",
+    "android"
+  ],
+  "references": [
+    {
+      "path": "./tsconfig.node.json"
+    }
+  ]
 }
