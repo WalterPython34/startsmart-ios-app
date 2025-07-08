@@ -3,35 +3,211 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>StartSmart</title>
+    <title>StartSmart - AI Business Formation Assistant</title>
+    <link rel="apple-touch-icon" sizes="180x180" href="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTgwIiBoZWlnaHQ9IjE4MCIgdmlld0JveD0iMCAwIDE4MCAxODAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIxODAiIGhlaWdodD0iMTgwIiByeD0iNDAiIGZpbGw9IiM2NjdlZWEiLz4KPHN2ZyB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgeD0iNDAiIHk9IjQwIiBmaWxsPSJ3aGl0ZSI+CiAgPHBhdGggZD0iTTUwIDIwTDgwIDM1TDUwIDUwTDIwIDM1WiIvPgogIDxwYXRoIGQ9Ik01MCA1MEw4MCA2NUw1MCA4MEwyMCA2NVoiLz4KPC9zdmc+Cjwvc3ZnPg==">
     <style>
-        body { 
-            font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+        * {
             margin: 0;
-            padding: 20px;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body { 
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
             min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
+            overflow-x: hidden;
         }
+        
         .container {
             text-align: center;
-            background: rgba(255,255,255,0.1);
-            padding: 40px;
-            border-radius: 20px;
-            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.1);
+            padding: 60px 40px;
+            border-radius: 24px;
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            margin: 20px;
+            animation: slideUp 0.8s ease-out;
         }
-        h1 { font-size: 3rem; margin-bottom: 1rem; }
-        p { font-size: 1.2rem; opacity: 0.9; }
+        
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .logo {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+            border-radius: 20px;
+            margin: 0 auto 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+        
+        .logo::before {
+            content: "📊";
+            font-size: 40px;
+        }
+        
+        h1 { 
+            font-size: 3.5rem; 
+            margin-bottom: 1rem; 
+            font-weight: 700;
+            letter-spacing: -2px;
+            background: linear-gradient(135deg, #ffffff 0%, #e2e8f0 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .subtitle {
+            font-size: 1.4rem;
+            opacity: 0.95;
+            margin-bottom: 2rem;
+            font-weight: 500;
+            line-height: 1.5;
+        }
+        
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 40px 0;
+        }
+        
+        .feature {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 25px 20px;
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: transform 0.3s ease, background 0.3s ease;
+        }
+        
+        .feature:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.15);
+        }
+        
+        .feature-icon {
+            font-size: 2rem;
+            margin-bottom: 10px;
+            display: block;
+        }
+        
+        .feature-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+        
+        .feature-desc {
+            font-size: 0.9rem;
+            opacity: 0.9;
+            line-height: 1.4;
+        }
+        
+        .status {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: white;
+            padding: 12px 30px;
+            border-radius: 50px;
+            font-weight: 600;
+            display: inline-block;
+            margin-top: 30px;
+            font-size: 1rem;
+            box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
+        }
+        
+        .coming-soon {
+            margin-top: 40px;
+            padding: 30px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .coming-soon h3 {
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+            color: #fbbf24;
+        }
+        
+        .coming-soon p {
+            font-size: 1rem;
+            opacity: 0.9;
+            line-height: 1.5;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 40px 20px;
+                margin: 10px;
+            }
+            
+            h1 {
+                font-size: 2.5rem;
+            }
+            
+            .subtitle {
+                font-size: 1.2rem;
+            }
+            
+            .features {
+                grid-template-columns: 1fr;
+            }
+        }
     </style>
 </head>
 <body>
     <div class="container">
+        <div class="logo"></div>
         <h1>StartSmart</h1>
-        <p>AI-Powered Business Formation Assistant</p>
-        <p>Coming Soon to iOS</p>
+        <p class="subtitle">AI-Powered Business Formation Assistant</p>
+        
+        <div class="features">
+            <div class="feature">
+                <span class="feature-icon">🤖</span>
+                <div class="feature-title">AI Guidance</div>
+                <div class="feature-desc">Smart business formation advice powered by advanced AI</div>
+            </div>
+            <div class="feature">
+                <span class="feature-icon">📋</span>
+                <div class="feature-title">Document Center</div>
+                <div class="feature-desc">Generate legal documents and business plans automatically</div>
+            </div>
+            <div class="feature">
+                <span class="feature-icon">📈</span>
+                <div class="feature-title">Progress Tracking</div>
+                <div class="feature-desc">Monitor your business formation journey step by step</div>
+            </div>
+            <div class="feature">
+                <span class="feature-icon">⚖️</span>
+                <div class="feature-title">Compliance Center</div>
+                <div class="feature-desc">Stay compliant with state and federal requirements</div>
+            </div>
+        </div>
+        
+        <div class="status">🚀 Deploying to iOS App Store</div>
+        
+        <div class="coming-soon">
+            <h3>📱 Mobile App Coming Soon</h3>
+            <p>We're preparing the full StartSmart experience for iOS. This deployment test confirms our App Store integration is working perfectly. The complete AI business assistant will be available soon!</p>
+        </div>
     </div>
 </body>
 </html>
