@@ -25,9 +25,16 @@ export default defineConfig({
   },
   server: {
     host: true,
-    port: 3000
+    port: 5173,  // Different port from your server
+    proxy: {
+      // Proxy API calls to your backend server
+      '/api': {
+        target: 'http://localhost:3000',
+        changeOrigin: true
+      }
+    }
   },
   preview: {
-    port: 3000
+    port: 5173
   }
 })
