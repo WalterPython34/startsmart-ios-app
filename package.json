@@ -1,14 +1,22 @@
 {
   "name": "startsmart-ios-app",
   "version": "1.0.0",
+  "type": "module",
   "scripts": {
     "build": "mkdir -p dist && cp index.html dist/",
-    "dev": "python -m http.server 3000"
+    "dev": "npx http-server . -p 3000",
+    "ios:add": "npx cap add ios",
+    "ios:sync": "npx cap sync ios",
+    "ios:open": "npx cap open ios"
   },
   "dependencies": {
     "@capacitor/android": "^6.0.0",
     "@capacitor/cli": "^6.0.0",
     "@capacitor/core": "^6.0.0",
-    "@capacitor/ios": "^6.0.0"
+    "@capacitor/ios": "^6.0.0",
+    "http-server": "^14.1.1"
+  },
+  "devDependencies": {
+    "@capacitor/cli": "^6.0.0"
   }
 }
