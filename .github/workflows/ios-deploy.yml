@@ -1,9 +1,12 @@
-name: iOS App Deploy - Simple
+name: iOS Deploy - Working Version
 
 on:
   push:
     branches: [ main ]
   workflow_dispatch:
+
+env:
+  CAPACITOR_CLI_NO_TELEMETRY: 1
 
 jobs:
   build-and-deploy:
@@ -21,21 +24,83 @@ jobs:
     - name: Install dependencies
       run: npm install
       
-    - name: Build app
+    - name: Build static app
       run: npm run build
       
-    - name: Setup Capacitor iOS
+    - name: Verify build output
       run: |
-        npx cap add ios
-        npx cap sync ios
+        ls -la dist/
+        cat dist/index.html
         
-    - name: Setup Ruby
+    - name: Install Capacitor CLI globally
+      run: npm install -g @capacitor/cli
+      
+    - name: Initialize Capacitor project
+      run: |
+        npx cap init "StartSmart" "ai.nextax.startsmart" --web-dir="dist"
+        
+    - name: Add iOS platform
+      run: npx cap add ios
+      
+    - name: Sync to iOS
+      run: npx cap sync ios
+      
+    - name: Verify iOS project structure
+      run: |
+        ls -la ios/
+        ls -la ios/App/
+        
+    - name: Setup Ruby and Bundler
       uses: ruby/setup-ruby@v1
       with:
         ruby-version: '3.0'
         working-directory: ios/App
         
-    - name: Install Fastlane
+    - name: Create Fastlane files
+      run: |
+        mkdir -p ios/App/fastlane
+        
+        # Create Gemfile
+        cat > ios/App/Gemfile << 'EOF'
+        source "https://rubygems.org"
+        
+        gem "fastlane"
+        gem "cocoapods"
+        EOF
+        
+        # Create Fastfile
+        cat > ios/App/fastlane/Fastfile << 'EOF'
+        default_platform(:ios)
+        
+        platform :ios do
+          desc "Build and upload to TestFlight"
+          lane :beta do
+            build_app(
+              workspace: "App.xcworkspace",
+              scheme: "App",
+              configuration: "Release",
+              export_method: "app-store"
+            )
+            
+            upload_to_testflight(
+              api_key: {
+                key_id: ENV["APP_STORE_CONNECT_API_KEY_ID"],
+                issuer_id: ENV["APP_STORE_CONNECT_ISSUER_ID"],
+                key_filepath: ENV["APP_STORE_CONNECT_API_KEY_PATH"]
+              },
+              skip_waiting_for_build_processing: true
+            )
+          end
+        end
+        EOF
+        
+        # Create Appfile
+        cat > ios/App/fastlane/Appfile << 'EOF'
+        app_identifier("ai.nextax.startsmart")
+        apple_id("morellosteve@gmail.com")
+        EOF
+        
+    - name: Install Fastlane dependencies
       run: |
         cd ios/App
         bundle install
