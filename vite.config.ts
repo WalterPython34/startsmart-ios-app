@@ -1,30 +1,33 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
-import path from 'path'
+import { resolve } from 'path'
 
+// https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react()],
-  resolve: {
-    alias: {
-      '@': path.resolve(__dirname, './client/src'),
-      '@shared': path.resolve(__dirname, './shared'),
-      '@assets': path.resolve(__dirname, './attached_assets'),
-    },
-  },
+  root: '.',
   build: {
     outDir: 'dist',
-    sourcemap: false,
+    emptyOutDir: true,
     rollupOptions: {
-      output: {
-        manualChunks: {
-          vendor: ['react', 'react-dom'],
-          ui: ['@radix-ui/react-dialog', '@radix-ui/react-select'],
-        },
-      },
-    },
+      input: {
+        main: resolve(__dirname, 'index.html')
+      }
+    }
+  },
+  resolve: {
+    alias: {
+      '@': resolve(__dirname, './client/src'),
+      '@/components': resolve(__dirname, './client/src/components'),
+      '@/pages': resolve(__dirname, './client/src/pages'),
+      '@/utils': resolve(__dirname, './client/src/utils')
+    }
   },
   server: {
-    port: 5173,
-    host: '0.0.0.0',
+    host: true,
+    port: 3000
   },
+  preview: {
+    port: 3000
+  }
 })
