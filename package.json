@@ -5,11 +5,20 @@
   "type": "module",
   "scripts": {
     "dev": "NODE_ENV=development tsx server/index.ts",
-    "build": "vite build",
+    "dev:client": "vite",
+    "build": "tsc && vite build",
+    "build:client": "vite build",
     "preview": "vite preview",
     "db:generate": "drizzle-kit generate",
     "db:migrate": "drizzle-kit migrate",
-    "db:push": "drizzle-kit push"
+    "db:push": "drizzle-kit push",
+    "ios:add": "npx cap add ios",
+    "ios:sync": "npx cap sync ios",
+    "ios:open": "npx cap open ios",
+    "ios:build": "npm run build:client && npx cap sync ios",
+    "ios:deploy": "npm run ios:build && npx cap open ios",
+    "mobile:setup": "npx cap add ios && npx cap add android",
+    "type-check": "tsc --noEmit"
   },
   "dependencies": {
     "@capacitor/android": "^6.1.2",
