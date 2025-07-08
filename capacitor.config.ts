@@ -1,19 +1,7 @@
-import { CapacitorConfig } from '@capacitor/cli';
-
-const config: CapacitorConfig = {
+const config = {
   appId: 'ai.nextax.startsmart',
   appName: 'StartSmart',
-  webDir: 'dist',
-  server: {
-    androidScheme: 'https',
-    iosScheme: 'https'
-  },
-  ios: {
-    scheme: 'StartSmart'
-  },
-  android: {
-    scheme: 'StartSmart'
-  }
+  webDir: 'dist'
 };
 
-export default config;
+module.exports = config;
