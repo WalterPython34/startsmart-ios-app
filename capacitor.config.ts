@@ -5,19 +5,14 @@ const config: CapacitorConfig = {
   appName: 'StartSmart',
   webDir: 'dist',
   server: {
-    androidScheme: 'https'
+    androidScheme: 'https',
+    iosScheme: 'https'
   },
   ios: {
     scheme: 'StartSmart'
   },
   android: {
-    buildOptions: {
-      keystorePath: undefined,
-      keystorePassword: undefined,
-      keystoreAlias: undefined,
-      keystoreAliasPassword: undefined,
-      releaseType: 'APK'
-    }
+    scheme: 'StartSmart'
   }
 };
 
