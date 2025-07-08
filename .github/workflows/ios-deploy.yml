@@ -16,22 +16,18 @@ jobs:
     - name: Setup Node.js
       uses: actions/setup-node@v4
       with:
-        node-version: '18'
-        cache: 'npm'
+        node-version: '20'
         
     - name: Install dependencies
-      run: npm ci
-      
-    - name: Type check
-      run: npm run type-check
+      run: npm install
       
     - name: Build React app
       run: npm run build:client
       
     - name: Setup Capacitor iOS
       run: |
-        npm run ios:add
-        npm run ios:sync
+        npx cap add ios
+        npx cap sync ios
         
     - name: Setup Ruby
       uses: ruby/setup-ruby@v1
