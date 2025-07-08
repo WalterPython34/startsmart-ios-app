@@ -18,23 +18,49 @@
   -webkit-text-size-adjust: 100%;
 }
 
+/* iOS specific styles */
 body {
   margin: 0;
   display: flex;
   place-items: center;
   min-width: 320px;
   min-height: 100vh;
+  background-color: #f8f9fa;
 }
 
 #root {
-  width: 100%;
+  max-width: 1280px;
   margin: 0 auto;
+  padding: 2rem;
   text-align: center;
+  width: 100%;
 }
 
+/* Light mode styles */
 @media (prefers-color-scheme: light) {
   :root {
     color: #213547;
     background-color: #ffffff;
+  }
+  
+  body {
+    background-color: #ffffff;
+  }
+}
+
+/* Mobile optimizations */
+@media (max-width: 768px) {
+  #root {
+    padding: 1rem;
+  }
+}
+
+/* iOS safe area handling */
+@supports (padding: max(0px)) {
+  body {
+    padding-top: max(env(safe-area-inset-top), 0px);
+    padding-bottom: max(env(safe-area-inset-bottom), 0px);
+    padding-left: max(env(safe-area-inset-left), 0px);
+    padding-right: max(env(safe-area-inset-right), 0px);
   }
 }
